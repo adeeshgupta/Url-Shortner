@@ -6,30 +6,20 @@ A high-performance URL shortening service built with Go and Gin, featuring rate 
 
 ### Prerequisites
 - Go 1.21+
-- Docker & Docker Compose
 - Redis
 
-### Local Development
+### Setup
 ```bash
+# Install Redis (macOS)
+brew install redis
+brew services start redis
+
 # Install dependencies
 make deps
 
 # Build and run
 make build
 make run
-```
-
-### Docker Deployment
-```bash
-# Build and run with Docker
-make docker-build
-make docker-run-detached
-
-# View logs
-make docker-logs
-
-# Stop services
-make docker-stop
 ```
 
 ## 📡 API Endpoints
@@ -80,6 +70,33 @@ Environment variables (optional - defaults provided):
 - ✅ Rate limiting (20 requests per 30 minutes)
 - ✅ Analytics tracking
 - ✅ Redis persistence
-- ✅ Docker support
+
 - ✅ Clean architecture with service layer
 - ✅ Comprehensive error handling
+
+## 🛠️ Development
+
+```bash
+# Format code
+make fmt
+
+# Clean build artifacts
+make clean
+
+## 🔍 Viewing Redis Data
+
+```bash
+# Connect to Redis CLI
+redis-cli
+
+# View URL mappings (Database 0)
+SELECT 0
+KEYS *
+GET <short_code>
+
+# View analytics (Database 1)
+SELECT 1
+KEYS *
+GET counter
+GET access:<short_code>
+```
