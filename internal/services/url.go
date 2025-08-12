@@ -139,7 +139,7 @@ func (s *URLService) checkShortCodeAvailability(shortCode string) error {
 // setDefaultExpiry sets default expiry if not provided.
 func (s *URLService) setDefaultExpiry(expiry time.Duration) time.Duration {
 	if expiry == 0 {
-		return constants.DefaultURLExpiryHours
+		return time.Duration(constants.DefaultURLExpiryHours) * time.Hour
 	}
 	return expiry
 }
