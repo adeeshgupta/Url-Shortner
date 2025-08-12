@@ -74,9 +74,9 @@ func getDomain() string {
 func getAPIQuota() int {
 	quota := os.Getenv(constants.EnvAPIQuota)
 	if quota == "" {
-		return constants.DefaultAPIQuota // Default quota: 10 requests per window
+		return constants.DefaultAPIQuota // Default quota: 20 requests per window
 	}
-	if quotaInt, err := strconv.Atoi(quota); err == nil {
+	if quotaInt, err := strconv.Atoi(quota); err == nil && quotaInt >= 0 {
 		return quotaInt
 	}
 	return constants.DefaultAPIQuota
@@ -90,7 +90,7 @@ func getRateLimit() time.Duration {
 	if rateLimit == "" {
 		return constants.DefaultRateLimitDuration // Default: 30-minute window
 	}
-	if rateLimitInt, err := strconv.Atoi(rateLimit); err == nil {
+	if rateLimitInt, err := strconv.Atoi(rateLimit); err == nil && rateLimitInt >= 0 {
 		return time.Duration(rateLimitInt) * time.Minute
 	}
 	return constants.DefaultRateLimitDuration
